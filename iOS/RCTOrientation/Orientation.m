@@ -173,6 +173,14 @@ RCT_EXPORT_METHOD(unlockAllOrientations)
 //  delegate.orientation = 3;
 }
 
+RCT_EXPORT_METHOD(unlockAllOrientationsIncludingUpsideDown)
+{
+  #if DEBUG
+    NSLog(@"Unlock All Orientations (including upside down)");
+  #endif
+  [Orientation setOrientation:UIInterfaceOrientationMaskAll];
+}
+
 - (NSDictionary *)constantsToExport
 {
 
