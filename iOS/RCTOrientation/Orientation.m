@@ -3,7 +3,11 @@
 //
 
 #import "Orientation.h"
+#if __has_include(<React/RCTEventDispatcher.h>)
+#import <React/RCTEventDispatcher.h>
+#else
 #import "RCTEventDispatcher.h"
+#endif
 
 @implementation Orientation
 @synthesize bridge = _bridge;
@@ -47,13 +51,10 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAllBu
     case UIDeviceOrientationPortrait:
       orientationStr = @"PORTRAIT";
       break;
-
     case UIDeviceOrientationLandscapeLeft:
-      orientationStr = @"LANDSCAPE-LEFT";
-      break;
-
     case UIDeviceOrientationLandscapeRight:
-      orientationStr = @"LANDSCAPE-RIGHT";
+
+      orientationStr = @"LANDSCAPE";
       break;
 
     case UIDeviceOrientationPortraitUpsideDown:
@@ -63,25 +64,22 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAllBu
     default:
       // orientation is unknown, we try to get the status bar orientation
       switch ([[UIApplication sharedApplication] statusBarOrientation]) {
-          case UIDeviceOrientationPortrait:
-            orientationStr = @"PORTRAIT";
-            break;
+        case UIInterfaceOrientationPortrait:
+          orientationStr = @"PORTRAIT";
+          break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
 
-          case UIDeviceOrientationLandscapeLeft:
-            orientationStr = @"LANDSCAPE-LEFT";
-            break;
+          orientationStr = @"LANDSCAPE";
+          break;
 
-          case UIDeviceOrientationLandscapeRight:
-            orientationStr = @"LANDSCAPE-RIGHT";
-            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+          orientationStr = @"PORTRAITUPSIDEDOWN";
+          break;
 
-          case UIDeviceOrientationPortraitUpsideDown:
-            orientationStr = @"PORTRAITUPSIDEDOWN";
-            break;
-
-          default:
-            orientationStr = @"UNKNOWN";
-            break;
+        default:
+          orientationStr = @"UNKNOWN";
+          break;
       }
       break;
   }
@@ -110,19 +108,16 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAllBu
     default:
       // orientation is unknown, we try to get the status bar orientation
       switch ([[UIApplication sharedApplication] statusBarOrientation]) {
-        case UIDeviceOrientationPortrait:
+        case UIInterfaceOrientationPortrait:
           orientationStr = @"PORTRAIT";
           break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
 
-        case UIDeviceOrientationLandscapeLeft:
-          orientationStr = @"LANDSCAPE-LEFT";
+          orientationStr = @"LANDSCAPE";
           break;
 
-        case UIDeviceOrientationLandscapeRight:
-          orientationStr = @"LANDSCAPE-RIGHT";
-          break;
-
-        case UIDeviceOrientationPortraitUpsideDown:
+        case UIInterfaceOrientationPortraitUpsideDown:
           orientationStr = @"PORTRAITUPSIDEDOWN";
           break;
 
@@ -183,10 +178,10 @@ RCT_EXPORT_METHOD(lockToLandscape)
   }
 }
 
-RCT_EXPORT_METHOD(lockToLandscapeRight)
+RCT_EXPORT_METHOD(lockToLandscapeLeft)
 {
   #if DEBUG
-    NSLog(@"Locked to Landscape Right");
+    NSLog(@"Locked to Landscape Left");
   #endif
     [Orientation setOrientation:UIInterfaceOrientationMaskLandscapeLeft];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
@@ -195,10 +190,10 @@ RCT_EXPORT_METHOD(lockToLandscapeRight)
 
 }
 
-RCT_EXPORT_METHOD(lockToLandscapeLeft)
+RCT_EXPORT_METHOD(lockToLandscapeRight)
 {
   #if DEBUG
-    NSLog(@"Locked to Landscape Left");
+    NSLog(@"Locked to Landscape Right");
   #endif
   [Orientation setOrientation:UIInterfaceOrientationMaskLandscapeRight];
   [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
@@ -227,6 +222,11 @@ RCT_EXPORT_METHOD(unlockAllOrientations)
   return @{
     @"initialOrientation": orientationStr
   };
+}
+
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
 }
 
 @end
