@@ -51,10 +51,13 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAllBu
     case UIDeviceOrientationPortrait:
       orientationStr = @"PORTRAIT";
       break;
-    case UIDeviceOrientationLandscapeLeft:
-    case UIDeviceOrientationLandscapeRight:
 
-      orientationStr = @"LANDSCAPE";
+    case UIDeviceOrientationLandscapeLeft:
+      orientationStr = @"LANDSCAPE-LEFT";
+      break;
+
+    case UIDeviceOrientationLandscapeRight:
+      orientationStr = @"LANDSCAPE-RIGHT";
       break;
 
     case UIDeviceOrientationPortraitUpsideDown:
@@ -64,22 +67,25 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAllBu
     default:
       // orientation is unknown, we try to get the status bar orientation
       switch ([[UIApplication sharedApplication] statusBarOrientation]) {
-        case UIInterfaceOrientationPortrait:
-          orientationStr = @"PORTRAIT";
-          break;
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
+case UIDeviceOrientationPortrait:
+            orientationStr = @"PORTRAIT";
+            break;
 
-          orientationStr = @"LANDSCAPE";
-          break;
+          case UIDeviceOrientationLandscapeLeft:
+            orientationStr = @"LANDSCAPE-LEFT";
+            break;
 
-        case UIInterfaceOrientationPortraitUpsideDown:
-          orientationStr = @"PORTRAITUPSIDEDOWN";
-          break;
+          case UIDeviceOrientationLandscapeRight:
+            orientationStr = @"LANDSCAPE-RIGHT";
+            break;
 
-        default:
-          orientationStr = @"UNKNOWN";
-          break;
+          case UIDeviceOrientationPortraitUpsideDown:
+            orientationStr = @"PORTRAITUPSIDEDOWN";
+            break;
+
+          default:
+            orientationStr = @"UNKNOWN";
+            break;
       }
       break;
   }
@@ -108,22 +114,25 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAllBu
     default:
       // orientation is unknown, we try to get the status bar orientation
       switch ([[UIApplication sharedApplication] statusBarOrientation]) {
-        case UIInterfaceOrientationPortrait:
-          orientationStr = @"PORTRAIT";
-          break;
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
+        case UIDeviceOrientationPortrait:
+            orientationStr = @"PORTRAIT";
+            break;
 
-          orientationStr = @"LANDSCAPE";
-          break;
+          case UIDeviceOrientationLandscapeLeft:
+            orientationStr = @"LANDSCAPE-LEFT";
+            break;
 
-        case UIInterfaceOrientationPortraitUpsideDown:
-          orientationStr = @"PORTRAITUPSIDEDOWN";
-          break;
+          case UIDeviceOrientationLandscapeRight:
+            orientationStr = @"LANDSCAPE-RIGHT";
+            break;
 
-        default:
-          orientationStr = @"UNKNOWN";
-          break;
+          case UIDeviceOrientationPortraitUpsideDown:
+            orientationStr = @"PORTRAITUPSIDEDOWN";
+            break;
+
+          default:
+            orientationStr = @"UNKNOWN";
+            break;
       }
       break;
   }
